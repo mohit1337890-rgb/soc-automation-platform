@@ -1,0 +1,17 @@
+PyYAML==6.0.2
+Jinja2==3.1.4
+requests==2.32.3
+anthropic==0.39.0
+streamlit>=1.57
+pandas>=2.2
+altair>=5.3
+fpdf2>=2.8
+
+# Windows-only: real Windows Event Log / Sysmon ingestion (core/pipeline.py
+# --source live). Skipped automatically on Linux/Docker via the marker below -
+# "live" Windows Event Log reading only ever runs on the Windows host anyway.
+pywin32>=306; sys_platform == "win32"
+
+# Cross-platform: real Google Workspace sign-in log ingestion (service
+# account auth). Azure AD and Okta only need `requests`, already listed above.
+google-auth>=2.34

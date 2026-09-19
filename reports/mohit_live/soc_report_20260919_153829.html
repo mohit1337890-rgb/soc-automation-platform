@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SOC Report - Mohit - Live Test</title>
+<style>
+  :root {
+    --bg: #0f1420; --panel: #161d2e; --panel2: #1d2740; --border: #2a3550;
+    --text: #e6ebf5; --muted: #93a0bf; --accent: #5b8cff;
+    --crit: #ff4d5e; --high: #ff9f45; --med: #ffd23f; --low: #4fd1a5;
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font-family: -apple-system,Segoe UI,Roboto,Arial,sans-serif; line-height:1.5; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 32px 20px 80px; }
+  header { border-bottom:1px solid var(--border); padding-bottom:20px; margin-bottom:28px; }
+  header h1 { margin:0 0 4px; font-size:26px; }
+  header .meta { color:var(--muted); font-size:14px; }
+  .kpis { display:flex; flex-wrap:wrap; gap:12px; margin:24px 0; }
+  .kpi { background:var(--panel); border:1px solid var(--border); border-radius:10px; padding:14px 18px; min-width:120px; flex:1; }
+  .kpi .n { font-size:26px; font-weight:700; }
+  .kpi .l { color:var(--muted); font-size:12px; text-transform:uppercase; letter-spacing:.04em; }
+  .kpi.crit .n{color:var(--crit)} .kpi.high .n{color:var(--high)} .kpi.med .n{color:var(--med)} .kpi.low .n{color:var(--low)}
+  section { margin: 36px 0; }
+  h2 { font-size:18px; border-left:4px solid var(--accent); padding-left:10px; margin-bottom:14px; }
+  .card { background:var(--panel); border:1px solid var(--border); border-radius:12px; padding:20px; }
+  .badge { display:inline-block; padding:2px 10px; border-radius:999px; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.03em; }
+  .badge.critical { background:rgba(255,77,94,.15); color:var(--crit); border:1px solid var(--crit); }
+  .badge.high { background:rgba(255,159,69,.15); color:var(--high); border:1px solid var(--high); }
+  .badge.medium { background:rgba(255,210,63,.15); color:var(--med); border:1px solid var(--med); }
+  .badge.low { background:rgba(79,209,165,.15); color:var(--low); border:1px solid var(--low); }
+  .badge.tag { background:var(--panel2); color:var(--muted); border:1px solid var(--border); }
+  .summary-box { white-space:pre-wrap; font-size:14.5px; }
+  .source-tag { float:right; font-size:11px; color:var(--muted); }
+  .incident { border:1px solid var(--border); border-radius:10px; padding:16px 18px; margin-bottom:16px; background:var(--panel); }
+  .incident h3 { margin:6px 0 8px; font-size:16px; }
+  .incident pre { white-space:pre-wrap; font-family:inherit; font-size:13.5px; color:var(--text); background:var(--panel2); padding:12px; border-radius:8px; }
+  table { width:100%; border-collapse:collapse; font-size:13.5px; }
+  th, td { text-align:left; padding:9px 10px; border-bottom:1px solid var(--border); vertical-align:top; }
+  th { color:var(--muted); font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:.03em; }
+  tr:hover td { background: rgba(255,255,255,0.02); }
+  .ioc-list { display:flex; flex-wrap:wrap; gap:8px; }
+  .ioc { background:var(--panel2); border:1px solid var(--border); padding:4px 10px; border-radius:6px; font-family:monospace; font-size:12.5px; }
+  footer { color:var(--muted); font-size:12px; margin-top:50px; border-top:1px solid var(--border); padding-top:16px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>SOC Automation Report</h1>
+    <div class="meta">Mohit - Live Test &middot; Generated 2026-09-19 10:08 UTC &middot; Tenant ID: mohit_live</div>
+  </header>
+
+  <div class="kpis">
+    <div class="kpi"><div class="n">1</div><div class="l">Total Alerts</div></div>
+    <div class="kpi crit"><div class="n">1</div><div class="l">Critical</div></div>
+    <div class="kpi high"><div class="n">0</div><div class="l">High</div></div>
+    <div class="kpi med"><div class="n">0</div><div class="l">Medium</div></div>
+    <div class="kpi low"><div class="n">0</div><div class="l">Low</div></div>
+    <div class="kpi"><div class="n">0</div><div class="l">Correlated Incidents</div></div>
+  </div>
+
+  <section>
+    <h2>Executive Summary</h2>
+    <div class="card">
+      <span class="source-tag">Template-Based</span>
+      <div class="summary-box">During this reporting period, Mohit - Live Test&#39;s environment triggered 1 security alert(s), including 1 critical and 0 high severity finding(s). No alerts correlated into a multi-stage attack chain; findings currently appear isolated.
+
+Recommended Immediate Actions:
+- Prioritize triage of all CRITICAL severity alerts within 1 hour.
+- Force a credential reset for every account involved in a correlated incident.
+- Isolate affected hosts from the network pending forensic review.
+- Validate backups are intact and offline if ransomware indicators were present.
+- Block IOCs (IPs, domains, hashes) listed in this report at the firewall/EDR.
+- Review MITRE ATT&amp;CK coverage gaps against current detection rules.</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Correlated Attack Chains (0)</h2>
+    
+      <div class="card">No multi-stage attack chains were correlated in this period.</div>
+    
+  </section>
+
+  <section>
+    <h2>MITRE ATT&amp;CK Coverage</h2>
+    <div class="card">
+      <table>
+        <tr><th>Technique</th><th>Name</th><th>Tactic</th><th>Alerts</th></tr>
+        
+        <tr>
+          <td><span class="badge tag">T1059.001</span></td>
+          <td>Command and Scripting Interpreter: PowerShell</td>
+          <td>Execution</td>
+          <td>1</td>
+        </tr>
+        
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Indicators of Compromise (IOCs)</h2>
+    <div class="card">
+      <div class="ioc-list">
+        
+        <span style="color:var(--muted)">No IOCs extracted.</span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>All Alerts (1)</h2>
+    <div class="card" style="overflow-x:auto;">
+      <table>
+        <tr><th>Time</th><th>Severity</th><th>Detector</th><th>Title</th><th>Entity</th><th>MITRE</th></tr>
+        
+        <tr>
+          <td>2026-09-18T13:58:02.287519+00:00</td>
+          <td><span class="badge critical">critical</span></td>
+          <td>powershell_analyzer</td>
+          <td>Suspicious PowerShell execution on jandu</td>
+          <td>91813</td>
+          <td>T1059.001</td>
+        </tr>
+        
+      </table>
+    </div>
+  </section>
+
+  <footer>Generated by SOC Automation Project &middot; 2026-09-19 10:08 UTC &middot; This report is confidential.</footer>
+</div>
+</body>
+</html>

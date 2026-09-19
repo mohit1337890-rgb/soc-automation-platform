@@ -1,0 +1,60 @@
+services:
+  # Web dashboard - this is the product the client sees. Starts automatically
+  # with `docker compose up`.
+  dashboard:
+    build: .
+    container_name: soc-dashboard
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./data:/app/data
+      - ./sample_data:/app/sample_data
+      - ./reports:/app/reports
+      - ./config:/app/config
+    environment:
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+      - VT_API_KEY=${VT_API_KEY:-}
+    restart: unless-stopped
+
+  # Always-on scheduler - starts automatically with `docker compose up` so
+  # scanning happens unattended instead of someone clicking "Run" in the
+  # dashboard. It only acts on tenants with scheduling enabled (dashboard ->
+  # Settings -> Scheduling), so it's harmless to leave running otherwise.
+  #
+  # CAVEAT: pywin32 (real Windows Event Log reading) only works on Windows -
+  # it's skipped automatically in this Linux container, so a scheduled
+  # "live" scan here only picks up real email, not real Windows logs. To
+  # schedule real Windows Event Log scanning, run `python scheduler.py`
+  # directly on the Windows host instead (elevated, for the Security log -
+  # see README's Real (live) mode section), not inside Docker.
+  scheduler:
+    build: .
+    container_name: soc-scheduler
+    volumes:
+      - ./data:/app/data
+      - ./sample_data:/app/sample_data
+      - ./reports:/app/reports
+      - ./config:/app/config
+    environment:
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+      - VT_API_KEY=${VT_API_KEY:-}
+    entrypoint: ["python", "scheduler.py"]
+    restart: unless-stopped
+
+  # On-demand pipeline run: `docker compose run --rm pipeline --tenant acme_corp`
+  # Kept out of the default `up` so it doesn't loop the demo-data generator
+  # on every boot; the dashboard's "Run Detection Pipeline Now" button calls
+  # the same code in-process instead.
+  pipeline:
+    build: .
+    volumes:
+      - ./data:/app/data
+      - ./sample_data:/app/sample_data
+      - ./reports:/app/reports
+      - ./config:/app/config
+    environment:
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+      - VT_API_KEY=${VT_API_KEY:-}
+    entrypoint: ["python", "main.py"]
+    command: ["--tenant", "demo"]
+    profiles: ["pipeline"]

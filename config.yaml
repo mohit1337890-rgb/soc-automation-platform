@@ -1,0 +1,90 @@
+# =========================================================
+# SOC Automation Project - Central Configuration
+# =========================================================
+# Tune every detector's thresholds/whitelists from here instead
+# of editing code. All paths are relative to the project root.
+
+paths:
+  sample_data_dir: "sample_data"
+  database_file: "data/soc.db"
+  reports_dir: "reports"
+
+# --- Detector 1: Phishing Email Detection ---
+phishing:
+  suspicious_tlds: [".zip", ".top", ".xyz", ".ru", ".info"]
+  suspicious_attachment_ext: [".exe", ".scr", ".js", ".vbs", ".hta", ".bat", ".ps1"]
+  url_shorteners: ["bit.ly", "tinyurl.com", "t.co", "goo.gl"]
+
+# --- Detector 2: VirusTotal Reputation Checker ---
+virustotal:
+  api_key: ""              # put your VT v3 API key here, or set env var VT_API_KEY
+  requests_per_minute: 4    # free tier limit
+  cache_ttl_hours: 24
+  # Used only when no API key is configured, so the module still works offline/demo.
+  offline_blocklist_hashes:
+    - "44d88612fea8a8f36de82e1278abb02f"   # eicar test hash (md5)
+  offline_blocklist_domains:
+    - "malicious-update-server.com"
+    - "free-invoice-pay.top"
+
+# --- Detector 3: Brute Force ---
+brute_force:
+  failed_attempts_threshold: 5
+  window_minutes: 5
+  success_after_failures_is_critical: true
+
+# --- Detector 4: LSASS / Mimikatz ---
+lsass_mimikatz:
+  suspicious_access_masks: ["0x1010", "0x1410", "0x143a", "0x1fffff"]
+  known_dump_tools: ["mimikatz.exe", "procdump.exe", "taskmgr.exe"]
+
+# --- Detector 5: PowerShell Analyzer ---
+powershell:
+  suspicious_keywords:
+    - "-enc"
+    - "-encodedcommand"
+    - "iex"
+    - "invoke-expression"
+    - "downloadstring"
+    - "downloadfile"
+    - "net.webclient"
+    - "invoke-mimikatz"
+    - "bypass"
+    - "hidden"
+
+# --- Detector 6: Ransomware ---
+ransomware:
+  known_ransom_extensions: [".locked", ".encrypted", ".crypt", ".wcry", ".lock"]
+  mass_file_change_threshold: 20     # events per host within window
+  mass_file_change_window_minutes: 2
+  shadow_copy_delete_commands: ["vssadmin delete shadows", "wbadmin delete catalog", "wmic shadowcopy delete"]
+
+# --- Detector 7: Persistence ---
+persistence:
+  suspicious_task_paths: ["\\appdata\\", "\\temp\\", "\\programdata\\"]
+  suspicious_run_key_paths: ["\\appdata\\", "\\temp\\", "\\downloads\\"]
+
+# --- Detector 8: Lateral Movement ---
+lateral_movement:
+  admin_shares: ["ADMIN$", "C$", "IPC$"]
+  psexec_indicators: ["psexesvc.exe", "psexec.exe"]
+  multi_host_logon_threshold: 3
+  multi_host_window_minutes: 15
+
+# --- Detector 9: Impossible Travel ---
+impossible_travel:
+  max_plausible_speed_kmh: 900   # ~ commercial flight speed
+  ipinfo_api_key: ""             # optional, set for real GeoIP lookups
+
+# --- Correlation Engine ---
+correlation:
+  max_gap_minutes: 180   # max time between chained alerts to still be "one incident"
+
+# --- GenAI Reporting (Executive Summary) ---
+genai:
+  enabled: true
+  provider: "anthropic"
+  model: "claude-sonnet-5"
+  max_tokens: 1200
+  # Reads ANTHROPIC_API_KEY from environment. If missing, report_generator
+  # automatically falls back to a deterministic template-based summary.

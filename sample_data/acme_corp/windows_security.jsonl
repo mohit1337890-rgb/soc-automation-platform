@@ -1,0 +1,26 @@
+{"source": "windows_security", "timestamp": "2026-09-18T13:27:00+00:00", "event_id": 4624, "user": "pverma", "host": "WKSTN-02", "src_ip": "10.0.1.34", "logon_type": 2}
+{"source": "windows_security", "timestamp": "2026-09-18T09:11:00+00:00", "event_id": 4624, "user": "nkhan", "host": "WKSTN-01", "src_ip": "10.0.1.21", "logon_type": 2}
+{"source": "windows_security", "timestamp": "2026-09-18T08:47:00+00:00", "event_id": 4624, "user": "asharma", "host": "WKSTN-05", "src_ip": "10.0.1.32", "logon_type": 2}
+{"source": "windows_security", "timestamp": "2026-09-18T14:06:00+00:00", "event_id": 4624, "user": "nkhan", "host": "WKSTN-05", "src_ip": "10.0.1.37", "logon_type": 2}
+{"source": "windows_security", "timestamp": "2026-09-18T14:54:00+00:00", "event_id": 4624, "user": "nkhan", "host": "WKSTN-03", "src_ip": "10.0.1.37", "logon_type": 2}
+{"source": "windows_security", "timestamp": "2026-09-18T09:19:00+00:00", "event_id": 4624, "user": "asharma", "host": "WKSTN-01", "src_ip": "10.0.1.44", "logon_type": 2}
+{"source": "windows_security", "timestamp": "2026-09-18T08:49:00+00:00", "event_id": 4624, "user": "pverma", "host": "WKSTN-01", "src_ip": "10.0.1.49", "logon_type": 2}
+{"source": "windows_security", "timestamp": "2026-09-18T12:34:00+00:00", "event_id": 4624, "user": "asharma", "host": "WKSTN-05", "src_ip": "10.0.1.38", "logon_type": 2}
+{"source": "windows_security", "timestamp": "2026-09-18T15:04:00+00:00", "event_id": 4624, "user": "asharma", "host": "WKSTN-01", "src_ip": "10.0.1.34", "logon_type": 2}
+{"source": "windows_security", "timestamp": "2026-09-18T14:35:00+00:00", "event_id": 4624, "user": "rgupta", "host": "WKSTN-01", "src_ip": "10.0.1.44", "logon_type": 2}
+{"source": "windows_security", "timestamp": "2026-09-18T10:22:00+00:00", "event_id": 4624, "user": "rgupta", "host": "WKSTN-03", "src_ip": "10.0.1.42", "logon_type": 2}
+{"source": "windows_security", "timestamp": "2026-09-18T09:47:00+00:00", "event_id": 4624, "user": "rgupta", "host": "WKSTN-05", "src_ip": "10.0.1.35", "logon_type": 2}
+{"source": "windows_security", "timestamp": "2026-09-18T09:23:00+00:00", "event_id": 4624, "user": "pverma", "host": "WKSTN-06", "src_ip": "10.0.1.55", "logon_type": 2}
+{"source": "windows_security", "timestamp": "2026-09-18T09:52:00+00:00", "event_id": 4624, "user": "rgupta", "host": "WKSTN-01", "src_ip": "10.0.1.40", "logon_type": 2}
+{"source": "windows_security", "timestamp": "2026-09-18T11:25:00+00:00", "event_id": 4624, "user": "rgupta", "host": "WKSTN-05", "src_ip": "10.0.1.40", "logon_type": 2}
+{"source": "windows_security", "timestamp": "2026-09-18T08:08:25+00:00", "event_id": 4625, "user": "svc_admin", "host": "DC-01", "src_ip": "185.220.101.47", "logon_type": 3, "failure_reason": "Unknown user name or bad password"}
+{"source": "windows_security", "timestamp": "2026-09-18T08:08:50+00:00", "event_id": 4625, "user": "svc_admin", "host": "DC-01", "src_ip": "185.220.101.47", "logon_type": 3, "failure_reason": "Unknown user name or bad password"}
+{"source": "windows_security", "timestamp": "2026-09-18T08:09:15+00:00", "event_id": 4625, "user": "svc_admin", "host": "DC-01", "src_ip": "185.220.101.47", "logon_type": 3, "failure_reason": "Unknown user name or bad password"}
+{"source": "windows_security", "timestamp": "2026-09-18T08:09:40+00:00", "event_id": 4625, "user": "svc_admin", "host": "DC-01", "src_ip": "185.220.101.47", "logon_type": 3, "failure_reason": "Unknown user name or bad password"}
+{"source": "windows_security", "timestamp": "2026-09-18T08:10:05+00:00", "event_id": 4625, "user": "svc_admin", "host": "DC-01", "src_ip": "185.220.101.47", "logon_type": 3, "failure_reason": "Unknown user name or bad password"}
+{"source": "windows_security", "timestamp": "2026-09-18T08:10:30+00:00", "event_id": 4625, "user": "svc_admin", "host": "DC-01", "src_ip": "185.220.101.47", "logon_type": 3, "failure_reason": "Unknown user name or bad password"}
+{"source": "windows_security", "timestamp": "2026-09-18T08:11:00+00:00", "event_id": 4624, "user": "svc_admin", "host": "DC-01", "src_ip": "185.220.101.47", "logon_type": 3}
+{"source": "windows_security", "timestamp": "2026-09-18T08:18:00+00:00", "event_id": 4698, "user": "svc_admin", "host": "WKSTN-07", "task_name": "\\Microsoft\\Windows\\UpdateHealthCheck", "task_action": "powershell.exe -enc <base64> -w hidden -File C:\\Users\\svc_admin\\AppData\\Roaming\\upd.ps1"}
+{"source": "windows_security", "timestamp": "2026-09-18T08:22:00+00:00", "event_id": 5140, "user": "svc_admin", "host": "FILESERVER-01", "src_ip": "10.0.1.15", "share_name": "\\\\FILESERVER-01\\ADMIN$"}
+{"source": "windows_security", "timestamp": "2026-09-18T08:25:40+00:00", "event_id": 5140, "user": "svc_admin", "host": "APPSERVER-02", "src_ip": "10.0.1.15", "share_name": "\\\\APPSERVER-02\\ADMIN$"}
+{"source": "windows_security", "timestamp": "2026-09-18T08:29:20+00:00", "event_id": 5140, "user": "svc_admin", "host": "DC-01", "src_ip": "10.0.1.15", "share_name": "\\\\DC-01\\ADMIN$"}

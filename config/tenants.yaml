@@ -1,0 +1,40 @@
+# =========================================================
+# Multi-Tenant Registry
+# =========================================================
+# One entry per client. Each tenant gets a physically separate database
+# (data/<id>/soc.db) so there is no shared table that could ever leak
+# one client's alerts into another client's dashboard/report.
+#
+# access_code: a plaintext shared-secret used by the Streamlit dashboard's
+# login screen. Fine for local demo tenants (leave "" for no code). For a
+# REAL client, use access_code_hash + access_code_salt instead - generate
+# them locally (never sent anywhere) with:
+#   python -c "from core.tenants import hash_access_code; print(hash_access_code('their-code'))"
+# and paste the two printed values in, e.g.:
+#   - id: "real_client"
+#     name: "Real Client Ltd"
+#     access_code_hash: "<digest from the command above>"
+#     access_code_salt: "<salt from the command above>"
+# This is still a shared-secret gate, not full enterprise SSO - for real
+# multi-tenant SaaS with many end users, replace it with Streamlit's native
+# st.login()/OIDC backed by your identity provider.
+
+tenants:
+  - id: "acme_corp"
+    name: "Acme Corp"
+    access_code: "acme-2024"
+
+  - id: "globex_inc"
+    name: "Globex Inc"
+    access_code: "globex-2024"
+
+  - id: "demo"
+    name: "Demo Organization"
+    access_code: ""
+
+  # Use this one for real/live testing (your own PC's real Windows logs +
+  # real email inbox) - kept separate from "demo" so synthetic showcase
+  # data and real data never mix in the same database.
+  - id: "mohit_live"
+    name: "Mohit - Live Test"
+    access_code: ""

